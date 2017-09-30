@@ -12,26 +12,34 @@ import hackuta.disasterprep.model.*;
  */
 
 public class MainController {
-    private static ArrayList<Item> defaultList;
 
-    public static ArrayList<Item> getList(){
-        if(defaultList == null){
-            setUpDefaultList();
-        }
-        //return default list
-        return defaultList;
-    }
+    private DatabaseHelper dbHelper = DatabaseHelper(this);
 
-    private static void setUpDefaultList() {
-        defaultList = new ArrayList<Item>();
-        defaultList.add(new Item("item1"));
-        defaultList.add(new ExpirableItem("item2"));
-    }
+
 
     public static ArrayList<Item> getList(Location loc){
         //returns applicable disaster kit for location
-
         return null;
+    }
+
+    public static boolean ChangeItemCount(int listId, Item item){
+        return false;
+    }
+
+    public static boolean AddItem(int listId, Item item){
+        return false;
+    }
+
+    public static boolean RemoveItem(int listId, String item){
+        return false;
+    }
+
+    public static boolean AddList(int listId, ArrayList<Item> items){
+        return false;
+    }
+
+    public static boolean RemoveList(int listId){
+        return false;
     }
 
 
