@@ -6,6 +6,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import hackuta.disasterprep.model.Item;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        ListView list = (ListView)(findViewById(R.id.list_view));
+        ArrayAdapter<Item> itemArrayAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_expandable_list_item_1, MainController.getList());
+        list.setAdapter(itemArrayAdapter);
+
+
     }
 
 }
