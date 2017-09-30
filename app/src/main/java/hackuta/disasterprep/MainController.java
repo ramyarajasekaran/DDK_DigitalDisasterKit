@@ -19,7 +19,7 @@ public class MainController {
             setUpDefaultList();
         }
         //return default list
-        return null;
+        return defaultList;
     }
 
     private static void setUpDefaultList() {
@@ -30,6 +30,7 @@ public class MainController {
 
     public static ArrayList<Item> getList(Location loc){
         //returns applicable disaster kit for location
+
         return null;
     }
 
