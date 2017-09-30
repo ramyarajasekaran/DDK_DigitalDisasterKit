@@ -20,4 +20,8 @@ public class ExpirableItem extends Item{
     public void setExpirDate(String date)throws ParseException{
         expirDate = formatter.parse(date);
     }
+
+    public Date getExpirDate(){
+        return this.expirDate;
+    }
 }

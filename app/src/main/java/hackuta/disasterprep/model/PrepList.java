@@ -7,5 +7,5 @@ import java.util.ArrayList;
  */
 
 public class PrepList {
-    ArrayList<Item> necesaryItems;
+    ArrayList<Item> necesaryItem;
 }
