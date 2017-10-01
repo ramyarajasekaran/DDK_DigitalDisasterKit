@@ -118,7 +118,7 @@ public class PrepList {
         necessaryItems.add(new Item("Fire Extinguisher: ABC Type"));
         necessaryItems.add(new Item("Flame Retardant Blanket"));
         necessaryItems.add(new Item("Fire Escape Ladder"));
-        
+
         return necessaryItems;
     }
 }
