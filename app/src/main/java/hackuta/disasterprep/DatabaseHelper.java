@@ -39,6 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private static final String KEY_amountPerPerson = "amountPerPerson";
     private static final String KEY_unitOfAmount="unitOfAmount";
     private static final String KEY_updateMessage = "updateMessage";
+    private static final String KEY_disaster = "disaster";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         String CREATE_ITEMS_TABLE = "CREATE TABLE " + TABLE_ITEMS + "("
                 + KEY_NAME + " TEXT PRIMARY KEY,"
                 + KEY_NUM + " INTEGER," + KEY_expirDate + " DATE, "+ KEY_amountPerPerson +
-                " TEXT, "+ KEY_unitOfAmount +" TEXT, "+KEY_updateMessage+" TEXT"+")";
+                " TEXT, "+ KEY_unitOfAmount +" TEXT, "+KEY_updateMessage+" TEXT, "+ KEY_disaster+" TEXT "+")";
         db.execSQL(CREATE_ITEMS_TABLE);
     }
 

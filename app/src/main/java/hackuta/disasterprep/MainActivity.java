@@ -1,28 +1,38 @@
 package hackuta.disasterprep;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+
+import hackuta.disasterprep.model.ExpirableItem;
 import hackuta.disasterprep.model.Item;
 import hackuta.disasterprep.model.PrepList;
 
-import static android.R.id.message;
-import static hackuta.disasterprep.R.id.fab;
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
+/**
+ * Created by ramya on 10/1/2017.
+ */
 
-public class MainActivity extends AppCompatActivity implements ErrorListener{
+public class MainActivity extends AppCompatActivity implements  ErrorListener{
+
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
     protected Controller controller;
+    final Context context = this;
     DatabaseHelper db = new DatabaseHelper(this);
 
     @Override
@@ -30,65 +40,32 @@ public class MainActivity extends AppCompatActivity implements ErrorListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-  //      setSupportActionBar(toolbar);
+
         ControllerFactory.SetContext(this);
         controller = ControllerFactory.getController();
         controller.ListenForError(this);
 
         //writing defaults to database
 
-        PrepList example =  new PrepList();
-        db.writeItemList(example.populateNecessaryItem());
+        String options[] = {"FLOOD", "FIRE", "EARTHQUAKE", "EXTENDED"};
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-           //     Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-             //           .setAction("Action", null).show();
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_list_item, options);
+        final ListView listView = (ListView) findViewById(R.id.MenuList);
+        listView.setAdapter(adapter);
 
-                CustomDialog customDialog =new CustomDialog(this);
-                customDialog .show();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                String selectedFromList = (listView.getItemAtPosition(position)).toString();
+
+                Intent intent = new Intent(getIntent());
+
+                intent.putExtra(EXTRA_MESSAGE, selectedFromList);
+                startActivity(intent);
 
             }
         });
 
-
-
-        /*
-        ListView list = (ListView)(findViewById(R.id.list_view));
-        ArrayAdapter<Item> itemArrayAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_expandable_list_item_1, controller.getList());
-        list.setAdapter(itemArrayAdapter); */
-
-        refreshScreen();
-
-
-    }
-
-    public void onAddItem(View v) {
-
-        EditText NewItem = (EditText) findViewById(R.id.addNewItem);
-        String itemText = NewItem.getText().toString();
-        if(itemText != null) {
-            Item newitem = new Item(itemText);
-
-            db.additem(newitem);
-
-            refreshScreen();
-        }
-        else{
-            Toast.makeText(this, "Please enter a new item to be added.", Toast.LENGTH_SHORT).show();
-        }
-        NewItem.setText("");
-    }
-
-    public void refreshScreen(){
-        // Create the adapter to convert the array to views
-        ItemAdapter adapter = new ItemAdapter(this, controller.getList());
-        // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
     }
 
 
@@ -97,3 +74,4 @@ public class MainActivity extends AppCompatActivity implements ErrorListener{
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
+

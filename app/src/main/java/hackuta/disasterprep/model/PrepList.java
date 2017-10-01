@@ -8,12 +8,40 @@ import java.util.ArrayList;
 
 public class PrepList {
 
-    ArrayList<Item> necesaryItems = populateNecessaryItem();
-    ArrayList<Item> extendedItems = populateExtendedItem();
-    ArrayList<Item> floodItems = populateFloodItem();
-    ArrayList<Item> carItems = populateCarItem();
-    ArrayList<Item> earthquakeItems = populateEarthquakeItem();
-    ArrayList<Item> fireItems = populateFireItem();
+    public ArrayList<Item> getNecesaryItems() {
+        return necesaryItems;
+    }
+
+    ArrayList<Item> necesaryItems ;// = populateNecessaryItem();
+    ArrayList<Item> extendedItems;// = populateExtendedItem();
+    ArrayList<Item> floodItems;// = populateFloodItem();
+    ArrayList<Item> carItems;// = populateCarItem();
+    ArrayList<Item> earthquakeItems;// = populateEarthquakeItem();
+    ArrayList<Item> fireItems;// = populateFireItem();
+
+    public PrepList(String message){
+        switch(message){
+            case "FLOOD":{
+                necesaryItems = populateFloodItem();
+                break;
+            }
+            case "FIRE":{
+                necesaryItems = populateFireItem();
+                break;
+            }
+            case "EARTHQUAKE":{
+                necesaryItems = populateEarthquakeItem();
+                break;
+            }
+            case "EXTENDED":{
+                necesaryItems = populateExtendedItem();
+                break;
+            }
+
+            default:
+
+        }
+    }
 
     public ArrayList<Item> populateNecessaryItem(){
         ArrayList<Item> necessaryItems = new ArrayList<Item>();

@@ -60,7 +60,6 @@ public class ExpirableItem extends Item{
 
     public void setExpirDate(String date)throws ParseException{
         expirDate = date;//formatter.parse(date);
-       // Log.d("STATE","see value of expirdate");
     }
 
     public String/*Date*/ getExpirDate(){
