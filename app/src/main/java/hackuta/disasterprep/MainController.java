@@ -15,7 +15,7 @@ import hackuta.disasterprep.model.*;
 
 public class MainController {
 
-    private DatabaseHelper dbHelper = DatabaseHelper(this);
+    private DatabaseHelper dbHelper = new DatabaseHelper(this);
 
 
 
