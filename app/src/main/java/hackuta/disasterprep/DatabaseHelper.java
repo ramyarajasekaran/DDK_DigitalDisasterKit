@@ -74,22 +74,18 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         values.put(KEY_NAME, item.getName());   // 0
         values.put(KEY_NUM, item.getAmount());  // 1
-        
-        values.put(KEY_NAME, item.getName());
-        values.put(KEY_NUM, item.getNum());
+
         if(item.getClass().equals(ExpirableItem.class)) {
-       	    values.put(KEY_expirDate,((ExpirableItem)item).getExpirDate().toString())); // 2
-	    values.put(KEY_amountPerPerson,((ExpirableItem).getAmountPerPerson())); // 3
-	    values.put(KEY_unitOfAmount,((ExpirableItem)item).getUnitOfAmount()));  // 4
-	    values.put(KEY_updateMessage,((ExpirableItem)item).getUpdateMessage()));  
+        values.put(KEY_expirDate,((ExpirableItem)item).getExpirDate().toString()); // 2
+	    values.put(KEY_amountPerPerson,(((ExpirableItem) item).getAmountPerPerson())); // 3
+	    values.put(KEY_unitOfAmount,((ExpirableItem)item).getUnitOfAmount());  // 4
+	    values.put(KEY_updateMessage,((ExpirableItem)item).getUpdateMessage()); // 5
         }else{
             values.put(KEY_expirDate, (String)null);
             values.put(KEY_amountPerPerson, (String)null);
             values.put(KEY_unitOfAmount, (String)null);
             values.put(KEY_updateMessage, (String)null);
         }
-
-
 
         // Inserting Row
         db.insert(TABLE_ITEMS, null, values);
@@ -112,24 +108,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         // looping through all rows and adding to list
         while (!cursor.isAfterLast()) {
 
-<<<<<<< HEAD
-            ExpirableItem item = new ExpirableItem(cursor.getString(0),cursor.getString(4),cursor.getString(5));
-                                                    // NAME           ,  UNIT             ,    MESSAGE
-            item.setAmount(Integer.parseInt(cursor.getString(1)));  // AMOUNT
+                Item item = (cursor.getString(2) == null) ? new Item(cursor.getString(0)) : new ExpirableItem(cursor.getString(0),cursor.getString(4),cursor.getString(5));
+                item.setAmount(Integer.parseInt(cursor.getString(1)));
 
-            try {
-                item.setExpirDate(cursor.getString(2)); //DATE
-=======
-            Item item = cursor.getString(2) == null ? new Item("") : new ExpirableItem(""); //?? bad??
-            item.setName(cursor.getString(0));
-            item.setNum(Integer.parseInt(cursor.getString(1)));
-            try {
-                ((ExpirableItem)item).setExpirDate(cursor.getString(2));
->>>>>>> stephanie
-            }   // date must be in a certain format
-            catch(ParseException exception){
+            // Only if item belongs to Expirableitem class do we extract ExpirDate/Unit/Amtperperson/Message
+              if(item.getClass().equals(ExpirableItem.class)) {
+                  try {
+                    ((ExpirableItem) item).setExpirDate(cursor.getString(2));   // 2
+                      ((ExpirableItem) item).setAmountPerPerson(Integer.parseInt(cursor.getString(3)));   // 3
+                  }
+                catch(ParseException exception){
+                        // exception never thrown as all Expirable Items in DB have valid Expir Dates + AmountPerPerson
+                }
+              }
 
-            }
+
             // Adding item to list
             itemList.add(item);
             cursor.moveToNext();
@@ -143,38 +136,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return itemList;
     }
     //UPDATING SINGLE ITEM
-    public void upgradeitem(Item old_item) throws ParseException{
+    public void upgradeitem(Item new_item) throws ParseException{
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_ITEMS, new String[] { KEY_NAME,
-                        KEY_NUM, KEY_expirDate,KEY_amountPerPerson,KEY_unitOfAmount,KEY_updateMessage },
-                        KEY_NAME + "=?",
-                new String[] { String.valueOf(old_item.getName()) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-
-<<<<<<< HEAD
-        ExpirableItem new_item = new ExpirableItem(cursor.getString(0),cursor.getString(4),cursor.getString(5));
-                                                // NAME           ,  UNIT             ,    MESSAGE
-        new_item.setAmount(Integer.parseInt(cursor.getString(1)));  // AMOUNT
-
-        try {
-            new_item.setExpirDate(cursor.getString(2)); //DATE
-        }   // date must be in a certain format
-        catch(ParseException exception){
-
-        }
-
-=======
-        Item new_item = cursor.getString(2)==null ? new Item("") : new ExpirableItem("");
-        new_item.setName(cursor.getString(0));
-        new_item.setNum(Integer.parseInt(cursor.getString(1)));
-        if(new_item.getClass().equals(ExpirableItem.class)) {
-            ((ExpirableItem)new_item).setExpirDate(cursor.getString(2));
-        }
->>>>>>> stephanie
-        deleteitem(old_item);   //deleting old item
+        deleteitem(new_item);   //deleting old item with the same name
 
         additem(new_item);  //adding new item to db
 
