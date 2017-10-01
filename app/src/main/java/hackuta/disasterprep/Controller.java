@@ -3,6 +3,7 @@ package hackuta.disasterprep;
 import android.content.Context;
 import android.location.Location;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 
@@ -14,35 +15,29 @@ import hackuta.disasterprep.model.*;
 
 public class Controller {
     private DatabaseHelper dbHelper;
+    public Event<String> RaistToast;
 
     public Controller(Context context){
         dbHelper = new DatabaseHelper(context);
     }
 
-    public ArrayList<Item> getList(Location loc){
-        //returns applicable disaster kit for location
-        return null;
+    public ArrayList<Item> getList(){
+        return dbHelper.getAllItems();
     }
 
-    public boolean ChangeItemCount(int listId, Item item){
-        return false;
+    public boolean ChangeItemCount(Item item){
+        try {
+            dbHelper.upgradeitem(item);
+        }catch(ParseException){
+
+        }
     }
 
-    public boolean AddItem(int listId, Item item){
-        return false;
+    public void AddItem(Item item){
+        dbHelper.additem(item);
     }
 
-    public boolean RemoveItem(int listId, String item){
-        return false;
+    public void RemoveItem(Item item){
+        dbHelper.deleteitem(item);
     }
-
-    public boolean AddList(int listId, ArrayList<Item> items){
-        return false;
-    }
-
-    public boolean RemoveList(int listId){
-        return false;
-    }
-
-
 }
