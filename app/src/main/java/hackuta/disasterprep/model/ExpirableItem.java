@@ -15,8 +15,9 @@ public class ExpirableItem extends Item{
     int amountPerPerson;
     String unitOfAmount;
 
-    public ExpirableItem(String name) {
+    public ExpirableItem(String name, String unit, String message) {
         super(name);
+        String
     }
 
     public void setExpirDate(String date)throws ParseException{
