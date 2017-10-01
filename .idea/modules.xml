@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DisasterPrep.iml" filepath="$PROJECT_DIR$/DisasterPrep.iml" />
+<<<<<<< HEAD
+=======
+      <module fileurl="file://$PROJECT_DIR$/HackUtaF2017.iml" filepath="$PROJECT_DIR$/HackUtaF2017.iml" />
+>>>>>>> e01a746058f18a112abb492c640ea86d078b0193
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
