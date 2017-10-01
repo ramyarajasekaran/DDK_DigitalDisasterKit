@@ -15,7 +15,7 @@ import hackuta.disasterprep.model.*;
 
 public class Controller {
     private DatabaseHelper dbHelper;
-    public Event<String> RaistToast;
+    public ArrayList<ErrorListener> listeners = new ArrayList<ErrorListener>();
 
     public Controller(Context context){
         dbHelper = new DatabaseHelper(context);
@@ -25,11 +25,11 @@ public class Controller {
         return dbHelper.getAllItems();
     }
 
-    public boolean ChangeItemCount(Item item){
+    public void ChangeItemCount(Item item){
         try {
             dbHelper.upgradeitem(item);
-        }catch(ParseException){
-
+        }catch(ParseException exc){
+            AlertListeners("Invalid date time encountered.");
         }
     }
 
@@ -39,5 +39,19 @@ public class Controller {
 
     public void RemoveItem(Item item){
         dbHelper.deleteitem(item);
+    }
+
+    public void ListenForError(ErrorListener listener){
+        listeners.add(listener);
+    }
+
+    public void StopListeningForError(ErrorListener listener){
+        listeners.remove(listener);
+    }
+
+    protected void AlertListeners(String message){
+        for(ErrorListener listener : listeners){
+            listener.handleError(message);
+        }
     }
 }

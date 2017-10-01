@@ -8,10 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import hackuta.disasterprep.model.Item;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity, implements ErrorListener {
+
+    protected Controller controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ControllerFactory.SetContext(this);
+        controller = ControllerFactory.getController();
+        controller.ListenForError(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -30,10 +36,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ListView list = (ListView)(findViewById(R.id.list_view));
-        ArrayAdapter<Item> itemArrayAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_expandable_list_item_1, Controller.getList());
+        ArrayAdapter<Item> itemArrayAdapter = new ArrayAdapter<Item>(this, android.R.layout.simple_expandable_list_item_1, controller.getList());
         list.setAdapter(itemArrayAdapter);
 
 
+    }
+
+    public void handleError(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 }
