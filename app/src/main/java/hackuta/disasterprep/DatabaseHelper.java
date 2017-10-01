@@ -92,7 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         // looping through all rows and adding to list
         while (!cursor.isAfterLast()) {
 
-            ExpirableItem item = new ExpirableItem(""); //?? bad??
+            ExpirableItem item = new ExpirableItem(cursor.getString(0),Integer.parseInt(cursor.getString(1)),);
             item.setName(cursor.getString(0));
             item.setNum(Integer.parseInt(cursor.getString(1)));
             try {
@@ -124,11 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         if (cursor != null)
             cursor.moveToFirst();
 
-        ExpirableItem new_item = new ExpirableItem("");
-
-        new_item.setName(cursor.getString(0));
-        new_item.setNum(Integer.parseInt(cursor.getString(1)));
-        new_item.setExpirDate(cursor.getString(2));
+        ExpirableItem new_item = new ExpirableItem(cursor.getString(0),Integer.parseInt(cursor.getString(1)),cursor.getString(2));
 
         deleteitem(old_item);   //deleting old item
 

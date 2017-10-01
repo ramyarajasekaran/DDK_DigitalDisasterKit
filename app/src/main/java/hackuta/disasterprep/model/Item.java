@@ -33,13 +33,11 @@ public class Item {
         this.name = name;
     }
 
-    public int getNum() {
-        return num;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }
-
-

@@ -14,10 +14,13 @@ public class ExpirableItem extends Item{
     private static DateFormat formatter = new SimpleDateFormat("d-MM-yyyy");
     int amountPerPerson;
     String unitOfAmount;
+    String updateMessage;
 
     public ExpirableItem(String name, String unit, String message) {
         super(name);
-        String
+        unitOfAmount = unit;
+        updateMessage = message;
+
     }
 
     public void setExpirDate(String date)throws ParseException{
