@@ -15,6 +15,7 @@ import hackuta.disasterprep.model.ExpirableItem;
 import hackuta.disasterprep.model.Item;
 
 import static android.R.attr.id;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.EXTEND;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static android.provider.Contacts.SettingsColumns.KEY;
 
@@ -76,10 +77,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         values.put(KEY_NUM, item.getAmount());  // 1
 
         if(item.getClass().equals(ExpirableItem.class)) {
-        values.put(KEY_expirDate,((ExpirableItem)item).getExpirDate().toString()); // 2
-	    values.put(KEY_amountPerPerson,(((ExpirableItem) item).getAmountPerPerson())); // 3
-	    values.put(KEY_unitOfAmount,((ExpirableItem)item).getUnitOfAmount());  // 4
-	    values.put(KEY_updateMessage,((ExpirableItem)item).getUpdateMessage()); // 5
+
+              values.put(KEY_expirDate, ((ExpirableItem) item).getExpirDate().toString()); // 2
+              values.put(KEY_amountPerPerson, (((ExpirableItem) item).getAmountPerPerson())); // 3
+              values.put(KEY_unitOfAmount, ((ExpirableItem) item).getUnitOfAmount());  // 4
+              values.put(KEY_updateMessage, ((ExpirableItem) item).getUpdateMessage()); // 5
+
         }else{
             values.put(KEY_expirDate, (String)null);
             values.put(KEY_amountPerPerson, (String)null);
@@ -92,6 +95,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close(); // Closing database connection
     }
 
+    // WRITING A LIST OF ITEMS
+    public void writeItemList(ArrayList<Item> itemList){
+        SQLiteDatabase db = this.getWritableDatabase();
+        for(Item item : itemList){
+                additem(item);
+        }
+    }
     // GETTING ALL ITEMS
 
     public ArrayList<Item> getAllItems() {

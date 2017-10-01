@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="510px"
+    android:background="#003366"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/txt_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="Add a new item"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:layout_gravity="center"
+        android:background="#FF6600"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/NewItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:hint="Enter a new item"
+
+            android:layout_alignBaseline="@+id/NewAmount"
+            android:layout_alignBottom="@+id/NewAmount"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:id="@+id/NewAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:hint="Enter amount"
+            android:paddingTop="20px"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/NewAmountPerPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:hint="Enter amount per person"
+            android:paddingTop="20px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="35dp" />
+
+        <EditText
+            android:id="@+id/NewunitofAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:hint="Enter amount"
+            android:paddingTop="20px"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/NewMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:hint="Enter amount"
+            android:paddingTop="20px"
+            android:layout_alignBaseline="@+id/NewAmountPerPerson"
+            android:layout_alignBottom="@+id/NewAmountPerPerson"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/Newexp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:hint="Enter amount"
+            android:paddingTop="20px"
+            android:layout_alignBaseline="@+id/NewAmountPerPerson"
+            android:layout_alignBottom="@+id/NewAmountPerPerson"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="403dp"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_weight="0.67">
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="275px"
+            android:layout_weight="0.05"
+            android:background="@android:color/white"
+            android:text="SUBMIT"
+            android:textColor="#5DBCD2"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

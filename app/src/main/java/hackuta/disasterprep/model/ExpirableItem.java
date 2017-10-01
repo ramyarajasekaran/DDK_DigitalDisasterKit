@@ -1,5 +1,7 @@
 package hackuta.disasterprep.model;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,8 +12,8 @@ import java.util.Date;
  */
 
 public class ExpirableItem extends Item{
-    Date expirDate;
-    private static DateFormat formatter = new SimpleDateFormat("d-MM-yyyy");
+    String expirDate;
+   // private static DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     int amountPerPerson;
     String unitOfAmount;
     String updateMessage;
@@ -46,14 +48,22 @@ public class ExpirableItem extends Item{
         super(name);
         unitOfAmount = unit;
         updateMessage = message;
+        try {
+            setExpirDate("03/10/2005");
+        }
+        catch(ParseException e){
+
+        }
+        setAmountPerPerson(0);
 
     }
 
     public void setExpirDate(String date)throws ParseException{
-        expirDate = formatter.parse(date);
+        expirDate = date;//formatter.parse(date);
+       // Log.d("STATE","see value of expirdate");
     }
 
-    public Date getExpirDate(){
+    public String/*Date*/ getExpirDate(){
         return this.expirDate;
     }
 }
