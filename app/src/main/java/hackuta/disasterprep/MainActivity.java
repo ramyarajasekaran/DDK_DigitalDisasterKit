@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import hackuta.disasterprep.model.Item;
 
-public class MainActivity extends AppCompatActivity, implements ErrorListener {
+public class MainActivity extends AppCompatActivity implements ErrorListener {
 
     protected Controller controller;
 

@@ -34,11 +34,11 @@ public class Item {
     }
 
     public int getNum() {
-        return num;
+        return amount;
     }
 
     public void setNum(int num) {
-        this.num = num;
+        this.amount = num;
     }
 }
 
