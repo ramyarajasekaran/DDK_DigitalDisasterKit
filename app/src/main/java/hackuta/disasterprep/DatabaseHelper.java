@@ -67,17 +67,28 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //CRUD OPERATIONS
 
     //ADDING AN ITEM
-    public void additem(ExpirableItem item) {
+    public void additem(Item item) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+
         values.put(KEY_NAME, item.getName());   // 0
         values.put(KEY_NUM, item.getAmount());  // 1
-        values.put(KEY_expirDate,(item.getExpirDate().toString())); // 2
+        
+        values.put(KEY_NAME, item.getName());
+        values.put(KEY_NUM, item.getNum());
+        if(item.getClass().equals(ExpirableItem.class)) {
+       	    values.put(KEY_expirDate,((ExpirableItem)item).getExpirDate().toString())); // 2
+	    values.put(KEY_amountPerPerson,((ExpirableItem).getAmountPerPerson())); // 3
+	    values.put(KEY_unitOfAmount,((ExpirableItem)item).getUnitOfAmount()));  // 4
+	    values.put(KEY_updateMessage,((ExpirableItem)item).getUpdateMessage()));  
+        }else{
+            values.put(KEY_expirDate, (String)null);
+            values.put(KEY_amountPerPerson, (String)null);
+            values.put(KEY_unitOfAmount, (String)null);
+            values.put(KEY_updateMessage, (String)null);
+        }
 
-        values.put(KEY_amountPerPerson,(item.getAmountPerPerson())); // 3
-        values.put(KEY_unitOfAmount,(item.getUnitOfAmount()));  // 4
-        values.put(KEY_updateMessage,(item.getUpdateMessage()));   //5
 
 
         // Inserting Row
@@ -87,8 +98,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     // GETTING ALL ITEMS
 
-    public ArrayList<ExpirableItem> getAllItems() {
-        ArrayList<ExpirableItem> itemList = new ArrayList<ExpirableItem>();
+    public ArrayList<Item> getAllItems() {
+        ArrayList<Item> itemList = new ArrayList<Item>();
 
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_ITEMS + ";";
@@ -101,12 +112,20 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         // looping through all rows and adding to list
         while (!cursor.isAfterLast()) {
 
+<<<<<<< HEAD
             ExpirableItem item = new ExpirableItem(cursor.getString(0),cursor.getString(4),cursor.getString(5));
                                                     // NAME           ,  UNIT             ,    MESSAGE
             item.setAmount(Integer.parseInt(cursor.getString(1)));  // AMOUNT
 
             try {
                 item.setExpirDate(cursor.getString(2)); //DATE
+=======
+            Item item = cursor.getString(2) == null ? new Item("") : new ExpirableItem(""); //?? bad??
+            item.setName(cursor.getString(0));
+            item.setNum(Integer.parseInt(cursor.getString(1)));
+            try {
+                ((ExpirableItem)item).setExpirDate(cursor.getString(2));
+>>>>>>> stephanie
             }   // date must be in a certain format
             catch(ParseException exception){
 
@@ -124,7 +143,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return itemList;
     }
     //UPDATING SINGLE ITEM
-    public void upgradeitem(ExpirableItem old_item) throws ParseException{
+    public void upgradeitem(Item old_item) throws ParseException{
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -135,6 +154,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         if (cursor != null)
             cursor.moveToFirst();
 
+<<<<<<< HEAD
         ExpirableItem new_item = new ExpirableItem(cursor.getString(0),cursor.getString(4),cursor.getString(5));
                                                 // NAME           ,  UNIT             ,    MESSAGE
         new_item.setAmount(Integer.parseInt(cursor.getString(1)));  // AMOUNT
@@ -146,6 +166,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         }
 
+=======
+        Item new_item = cursor.getString(2)==null ? new Item("") : new ExpirableItem("");
+        new_item.setName(cursor.getString(0));
+        new_item.setNum(Integer.parseInt(cursor.getString(1)));
+        if(new_item.getClass().equals(ExpirableItem.class)) {
+            ((ExpirableItem)new_item).setExpirDate(cursor.getString(2));
+        }
+>>>>>>> stephanie
         deleteitem(old_item);   //deleting old item
 
         additem(new_item);  //adding new item to db
@@ -154,7 +182,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     // DELETING SINGLE ITEM
-    public void deleteitem(ExpirableItem item) {
+    public void deleteitem(Item item) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_ITEMS, KEY_NAME + " = ?",
                 new String[] { String.valueOf(item.getName())});
