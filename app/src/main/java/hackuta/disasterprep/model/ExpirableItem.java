@@ -16,6 +16,32 @@ public class ExpirableItem extends Item{
     String unitOfAmount;
     String updateMessage;
 
+    public int getAmountPerPerson() {
+        return amountPerPerson;
+    }
+
+    public void setAmountPerPerson(int amountPerPerson) {
+        this.amountPerPerson = amountPerPerson;
+    }
+
+    public String getUnitOfAmount() {
+        return unitOfAmount;
+    }
+
+    public void setUnitOfAmount(String unitOfAmount) {
+        this.unitOfAmount = unitOfAmount;
+    }
+
+    public String getUpdateMessage() {
+        return updateMessage;
+    }
+
+    public void setUpdateMessage(String updateMessage) {
+        this.updateMessage = updateMessage;
+    }
+
+
+
     public ExpirableItem(String name, String unit, String message) {
         super(name);
         unitOfAmount = unit;
