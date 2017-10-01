@@ -11,7 +11,9 @@ import java.util.Date;
 
 public class ExpirableItem extends Item{
     Date expirDate;
-    private static DateFormat formatter = new SimpleDateFormat("d-MMM-yyyy,HH:mm:ss aaa");
+    private static DateFormat formatter = new SimpleDateFormat("d-MM-yyyy");
+    int amountPerPerson;
+    String unitOfAmount;
 
     public ExpirableItem(String name) {
         super(name);
